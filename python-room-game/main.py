@@ -1,22 +1,4 @@
-'''
-add at least 3 rooms and doors to the game
-add items to all the rooms
-add enemies to all the rooms
-make the program stop
-add an additional feature to the game of your own choosing.
-'''
-
-'''
-I may add:
-    rooms and doors
-    items to rooms
-    new derictions
-    other things
-    more commands
-    game logic
-    statis veriables
-'''
-
+from house import *
 from time import *
 from random import *
 
@@ -29,9 +11,8 @@ print("| | \ \    \       /    \       /   | |  |  |  | |     \  \__/  /  | |  |
 print("|_|  \_\    \_____/      \_____/    |_|  |__|  |_|      \______/   |_|  |_|  |_|  |__|  |_|  |____|")
 print("/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/")
 print("\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\ ")
-#The name of a room in the rooms dictionary
 
-def bossroom():
+def boss_room():
     global strength
     global heart
     global currentRoom
@@ -50,7 +31,7 @@ def bossroom():
     print(" |____/     \_______/      \____/     \____/  ")
     print(r"{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}")
 
-    bossHeart = 3
+    boss_heart = 3
 
     if "sword" in inventory[1]:
         strength += 4
@@ -67,39 +48,39 @@ def bossroom():
     else:
         heart = 0
 
-    while heart > 0 and bossHeart > 0:
+    while heart > 0 and boss_heart > 0:
         if usable != None:
             if input("Would you like to use an item? (Yes, or no): ")[0].lower() == "y":
                 use(input("Type the item you would like to use: "))
-        playerAttack = randint(0, strength + extraStrength)
-        bossAttack = randint(7, 49 - extraWeakness)
-        bossHeartList = []
-        while len(bossHeartList) < bossHeart:
-            bossHeartList.append("heart")
+        player_attack = randint(0, strength + extraStrength)
+        boss_attack = randint(7, 49 - extraWeakness)
+        boss_heart_list = []
+        while len(boss_heart_list) < boss_heart:
+            boss_heart_list.append("heart")
         
-            heartList = []
-            for hearts in bossHeartList:
+            heart_list = []
+            for hearts in boss_heart_list:
                 print(" _  _ ", end=" ")
             print()
-            for hearts in bossHeartList:
+            for hearts in boss_heart_list:
                 print("/ \/ \ ", end="")
             print()
-            for hearts in bossHeartList:
+            for hearts in boss_heart_list:
                 print("\    /", end=" ")
             print()
-            for hearts in bossHeartList:
+            for hearts in boss_heart_list:
                 print(" \  / ", end=" ")
             print()
-            for hearts in bossHeartList:
+            for hearts in boss_heart_list:
                 print("  \/  ", end=" ")
             print()
 
-        print("You have an attack power of", playerAttack)
-        print("The BOSS has an attack power of", bossAttack)
-        if playerAttack > bossAttack:
+        print("You have an attack power of", player_attack)
+        print("The BOSS has an attack power of", boss_attack)
+        if player_attack > boss_attack:
             print("You hurt the BOSS!")
-            bossHeart -= 1
-        elif playerAttack == bossAttack:
+            boss_heart -= 1
+        elif player_attack == boss_attack:
             if "sheild" in inventory[0]:
                 block = randint(0, 3)
             if block == 2 or block == 3:
@@ -107,7 +88,7 @@ def bossroom():
             else:
                 print("You hurt the BOSS, though he also hurt you!!")
                 heart -= 1
-            bossHeart -= 1
+            boss_heart -= 1
             block = None
         else:
             if "sheild" in inventory[0]:
@@ -118,14 +99,14 @@ def bossroom():
                 print("The BOSS hurt you!!!")
                 heart -= 1
 
-    extraStrength = 0
-    extraWeakness = 0
+    extra_strength = 0
+    extra_weakness = 0
 
-    if bossHeart == 0:
+    if boss_heart == 0:
         print("You killed the boss!!!")
-        currentRoom = 14
+        current_room = 14
 
-def victoryMessage():
+def victory_message():
     print("    _____________________")
     print("   /                     \ ")
     print("  /                       \ ")
@@ -147,7 +128,7 @@ def victoryMessage():
     print("     |    / \    __/")
     print("     |__________|")
 
-def deathMessage():
+def death_message():
     print("__   __   _____    _   _     ____    _   ___   ___     _  ")
     print("\ \_/ /  /  _  \  | | | |   |  _ \  | | |  _| |  _ \  | | ")
     print(" \   /  |  / \  | | | | |   | | \ | | | | |_  | | \ | | | ")
@@ -160,21 +141,21 @@ strength = 0
 
 def enemy():
     global extraWeakness
-    if "toilet-enemy" in rooms[currentRoom]["enemy"]:
+    if "toilet-enemy" in house[houseIndex][currentRoom]["enemy"]:
         enemyAttack = randint(0, 5)
-    elif "bedroom-enemy" in rooms[currentRoom]["enemy"]:
+    elif "bedroom-enemy" in house[houseIndex][currentRoom]["enemy"]:
         enemyAttack = randint(0, 3)
-    elif "cook-enemy" in rooms[currentRoom]["enemy"]:
+    elif "cook-enemy" in house[houseIndex][currentRoom]["enemy"]:
         enemyAttack = randint(0, 4)
-    elif "chair-enemy" in rooms[currentRoom]["enemy"]:
+    elif "chair-enemy" in house[houseIndex][currentRoom]["enemy"]:
         enemyAttack = randint(0, 6)
-    elif "tv-enemy" in rooms[currentRoom]["enemy"]:
+    elif "tv-enemy" in house[houseIndex][currentRoom]["enemy"]:
         enemyAttack = randint(0, 1)
-    elif "food-serving-enemy" in rooms[currentRoom]["enemy"]:
+    elif "food-serving-enemy" in house[houseIndex][currentRoom]["enemy"]:
         enemyAttack = randint(0, 5)
-    elif "motercycle-enemy" in rooms[currentRoom]["enemy"]:
+    elif "motercycle-enemy" in house[houseIndex][currentRoom]["enemy"]:
         enemyAttack = randint(0, 2)
-    elif "door-keeper" in rooms[currentRoom]["enemy"]:
+    elif "door-keeper" in house[houseIndex][currentRoom]["enemy"]:
         enemyAttack = randint(0, 7)
 
     enemyAttack -= extraWeakness
@@ -188,9 +169,9 @@ def battle():
     global extraStrength
     global extraWeakness
     global key
-    global rooms
+    global house
 
-    if "enemy" in rooms[currentRoom]:
+    if "enemy" in house[houseIndex][currentRoom]:
         if "sword" in inventory[1]:
             strength += 4
             if "bow" in inventory[1] and "arrows" in inventory[0]:
@@ -199,22 +180,18 @@ def battle():
                     strength += 3
                     usable.remove("arrows")
                     inventory[0].remove("arrows")
-                else:
-                    pass
                 if "Master-Key" in key:
                     strength += 1
             elif "Master-Key" in key:
                 strength += 7
         elif "broken-sword" in inventory[0]:
             print("You defeated the monster!")
-            del rooms[currentRoom]["enemy"]
+            del house[houseIndex][currentRoom]["enemy"]
             usable.remove("broken-sword")
-        else:
-            pass
         
-    while "enemy" in rooms[currentRoom] and heart > -1:
+    while "enemy" in house[houseIndex][currentRoom] and heart > -1:
         block = None
-        print("You are battling a(n)", rooms[currentRoom]["enemy"])
+        print("You are battling a(n)", house[houseIndex][currentRoom]["enemy"])
         if usable != None:
             if input("Would you like to use an item? (Yes, or no): ")[0].lower() == "y":
                 use(input("Type the item you would like to use: "))
@@ -225,7 +202,7 @@ def battle():
         print("Your enemies attack power is", enemyAttack)
 
         if playerAttack > enemyAttack:
-            del rooms[currentRoom]["enemy"]
+            del house[houseIndex][currentRoom]["enemy"]
             print("Well done, you defeated an enemy!")
         elif playerAttack == enemyAttack:
             if "sheild" in inventory[0]:
@@ -235,7 +212,7 @@ def battle():
             else:
                 heart -= 1
                 print(f"You defeated an enemy, but your harts went down to {heart}!")
-            del rooms[currentRoom]["enemy"]
+            del house[houseIndex][currentRoom]["enemy"]
         else:
             if "sheild" in inventory[0]:
                 block = randint(0, 3)
@@ -275,122 +252,16 @@ def use(use):
     else:
         print("You can't use that item!")
 
-#an inventory, which is initially empty
-usable = []
-unusable = []
-inventory = [usable, unusable]
-#a key storage, which is instantly empty
-key = []
-#start the player in room 1
-heart = 7
-#aditional strength for battle
-extraStrength = 0
-#used to harm aponents
-extraWeakness = 0
+
 #starts in hall
 currentRoom = 1
 #this way you won't die the first round
 turns = 0
 #a dictionary linking a room to other room positions
-rooms = {
-            1 : {  "name"  : "Hall" ,
-                   "south-east"  : 2,
-                   "south-west" : 3,
-                   "north-west" : 5,
-                   "north"  : 7,
-                   "north-east"  : 8,
-                   "west"  : 9,
-                   "east"  : 12,
-                   "unusable"  : "welcome-note",
-                   "usable"  : "broken-sword",
-                   "key"  : "challengers-key",
-                   "heart"  : "heart" } ,
-
-            2 : {  "name"  : "Bedroom",
-                   "north-east"  : 1,
-                   "south-east" : 4,
-                   "unusable"  : "sword",
-                   "key"  : "sleepers-key",
-                   "enemy"  : "bedroom-enemy" }  ,
-
-            3 : {  "name"  : "Kitchen" ,
-                   "north-east" : 1,
-                   "unusable"  : "bow",
-                   "usable"  : "super-food",
-                   "key"  : "cookers-key",
-                   "enemy"  : "cook-enemy" }  ,
-
-            4 : {  "name"  : "Masters Bathroom",
-                   "north"  : 2,
-                   "heart"  : "heart",
-                   "usable"  : "toilet-paper",
-                   "key"  : "flushers-key",
-                   "enemy"  : "toilet-enemy" } ,
-
-            5 : {  "name"  : "Guestroom",
-                   "north-west"  : 6,
-                   "south-east"  : 1,
-                   "key"  : "visitors-key",
-                   "usable"  : "potion",
-                   "enemy"  : "bedroom-enemy" } ,
-
-            6 : {  "name"  : "Guest Bathroom",
-                   "south"  : 5,
-                   "heart"  : "heart",
-                   "unusable"  : "sheild",
-                   "usable"  : "arrows",
-                   "key"  : "pody-key",
-                   "enemy"  : "toilet-enemy" } ,
-
-            7 : {  "name"  : "Bathroom",
-                   "south"  : 1,
-                   "heart"  : "heart",
-                   "usable"  : "toilet-paper",
-                   "key"  : "toileters-key",
-                   "enemy"  : "toilet-enemy" } ,
-
-            8 : {  "name"  : "Office",
-                   "south-east"  : 1,
-                   "unusable"  : "journal",
-                   "usable"  : "potion",
-                   "key"  : "programmers-key",
-                   "enemy"  : "chair-enemy" } ,
-
-            9 : {  "name"  : "Livingroom",
-                   "south"  : 10,
-                   "north-west"  : 11,
-                   "east"  : 1,
-                   "west"  : "leave",
-                   "key"  : "livers-key",
-                   "enemy"  : "tv-enemy",
-                   "usable"  : "arrows" } ,
-
-            10 : {  "name"  : "Diningroom",
-                    "north"  : 9,
-                    "usable"  : "food",
-                    "key"  : "hungers-key",
-                    "enemy"  : "food-serving-enemy" } ,
-
-            11 : {  "name"  : "Garage",
-                    "south-west"  : 9,
-                    "west"  : "leave",
-                    "usable"  : "gas-with-fire",
-                    "key"  : "drivers-key",
-                    "enemy"  : "motercycle-enemy" } ,
-
-            12 : {  "name"  : "MYSTERIOUS DOOR ROOM",
-                    "west"  : 1,
-                    "door"  : "door",
-                    "enemy"  : "door-keeper" } ,
-
-            13 : {  "name"  : "Bossroom",
-                    "secrit-key"  : "Master-Key" } ,
-
-            14 : {  "name"  : "Outside the House"}
-         }
+houseIndex = 0
 
 def main():
-    showInstructions()
+    show_instructions()
     
     global currentRoom
     global inventory
@@ -404,10 +275,10 @@ def main():
     while True:
 
         if currentRoom == 14:
-            return victoryMessage()
+            return victory_message()
 
         #show hearts, inventory, keys, game discription, and room contents.
-        showStatus()
+        show_status()
 
         #get the player's next 'move'
         #.split() breaks it up into an list array
@@ -416,7 +287,7 @@ def main():
         move = input(">").split()
         
         if move[0] == "open":
-            if move[1] in rooms[currentRoom] and move[1] == "door":
+            if move[1] in house[houseIndex][currentRoom] and move[1] == "door":
                 print("Over each key hole is a number.")
                 print("The numbers are 1 3 3 3 11 3 9 1 2 5")
                 print("Put the keys in the correct spot.")
@@ -434,23 +305,19 @@ def main():
                             break
                     else:
                         print("You do not have enough keys!")
-                else:
-                    pass
         #if they type 'go' first
         elif move[0] == "go":
             #check that they are allowed wherever they want to go
-            if move[1] in rooms[currentRoom]:
+            if move[1] in house[houseIndex][currentRoom]:
                 #set the current room to the new room
-                if rooms[currentRoom][move[1]] == "leave":
+                if house[houseIndex][currentRoom][move[1]] == "leave":
                     print("Are you sure you want to leave the house? That will make you quit the game.")
                     leave = input(">").lower()
                     if leave == "yes":
                         print("You left the house!")
                         break
-                    else :
-                        pass
                 else:
-                    currentRoom = rooms[currentRoom][move[1]]
+                    currentRoom = house[houseIndex][currentRoom][move[1]]
                     print("You went!")
             #there is no door (link) to the new room
             else:
@@ -459,43 +326,43 @@ def main():
         #if they type 'get' first
         elif move[0] == "get" :
             #if the room contains a usable item, and the item is the one they want to get
-            if "usable" in rooms[currentRoom] and move[1] == rooms[currentRoom]["usable"]:
+            if "usable" in house[houseIndex][currentRoom] and move[1] == house[houseIndex][currentRoom]["usable"]:
                 #add the item to their inventory
                 usable += [move[1]]
                 #display a helpful message
                 print(move[1] + " got!")
                 #delete the item from the room
-                del rooms[currentRoom]["usable"]
+                del house[houseIndex][currentRoom]["usable"]
             #if the room contains an unusable item, and the item is the one they want to get
-            elif "unusable" in rooms[currentRoom] and move[1] == rooms[currentRoom]["unusable"]:
+            elif "unusable" in house[houseIndex][currentRoom] and move[1] == house[houseIndex][currentRoom]["unusable"]:
                 #add the item to their inventory
                 unusable += [move[1]]
                 #display a helpful message
                 print(move[1] + " got!")
                 #delete the item from the room
-                del rooms[currentRoom]["unusable"]
+                del house[houseIndex][currentRoom]["unusable"]
             #otherwise, if the item isn't there to get
-            elif "key" in rooms[currentRoom] and move[1] == rooms[currentRoom]["key"]:
+            elif "key" in house[houseIndex][currentRoom] and move[1] == house[houseIndex][currentRoom]["key"]:
                 #add the key to their storage
                 key += [move[1]]
                 #display a helpful message
                 print(move[1] + " collected!")
                 #delete the key from the room
-                del rooms[currentRoom]["key"]
-            elif "heart" in rooms[currentRoom] and move[1] == rooms[currentRoom]["heart"]:
+                del house[houseIndex][currentRoom]["key"]
+            elif "heart" in house[houseIndex][currentRoom] and move[1] == house[houseIndex][currentRoom]["heart"]:
                 #add the heart to their healt bar
                 heart += 1
                 #display a helpful message
                 print(move[1] + " gained!")
                 #delete the heart from the room
-                del rooms[currentRoom]["heart"]
-            elif "Matser-Key" in rooms[currentRoom] and move[1] == rooms[currentRoom]["Master-Key"]:
+                del house[houseIndex][currentRoom]["heart"]
+            elif "Matser-Key" in house[houseIndex][currentRoom] and move[1] == house[houseIndex][currentRoom]["Master-Key"]:
                 #add to keys
                 key += "Master-Key"
                 #display a helpful message
                 print(f"You got the {move[1]}")
                 #delete the key from the room
-                del rooms[currentRoom]["secrit-key"]
+                del house[houseIndex][currentRoom]["secrit-key"]
             else:
                 #tell them they can't get it
                 print("Can't get " + move[1] + "!")
@@ -533,22 +400,22 @@ def main():
                 print("|__________|_______|_______|                     S")
 
         if currentRoom == 13:
-            bossroom()
+            boss_room()
 
         battle()
 
         if heart < 1:
-            return deathMessage()
+            return death_message()
 
-def showInstructions():
+def show_instructions():
     # comment
-    print("RPG Game")
-    print("========")
+    print("Room Game")
+    print("=========")
     print("Commands:")
     print("'go [direction]'")
     print("'get [item]'")
     print("'read [item]'")
-def showStatus():
+def show_status():
     global currentRoom
     global inventory
     global key
@@ -569,20 +436,20 @@ def showStatus():
         for hearts in heartList:
             print(" \/ ", end="")
         print()
-    print("You are in the " + rooms[currentRoom]["name"])
+    print("You are in the " + house[houseIndex][currentRoom]["name"])
     #print the current inventory
     print("Inventory : " + str(inventory))
     #print collected keys
     print("Keys : " + str(key))
     #print an item if there is one
-    if "usable" in rooms[currentRoom]: 
-        print("You see a " + rooms[currentRoom]["usable"] + " in this room")
-    if "unusable" in rooms[currentRoom]: 
-        print("You see a " + rooms[currentRoom]["unusable"] + " in this room")
-    if "key" in rooms[currentRoom]:
-        print("There is a " + rooms[currentRoom]["key"] + " in this room")
-    if "heart" in rooms[currentRoom]:
-        print("There is a " + rooms[currentRoom]["heart"] + " in this room")
+    if "usable" in house[houseIndex][currentRoom]: 
+        print("You see a " + house[houseIndex][currentRoom]["usable"] + " in this room")
+    if "unusable" in house[houseIndex][currentRoom]: 
+        print("You see a " + house[houseIndex][currentRoom]["unusable"] + " in this room")
+    if "key" in house[houseIndex][currentRoom]:
+        print("There is a " + house[houseIndex][currentRoom]["key"] + " in this room")
+    if "heart" in house[houseIndex][currentRoom]:
+        print("There is a " + house[houseIndex][currentRoom]["heart"] + " in this room")
     print("----------------------------")
 
 main()

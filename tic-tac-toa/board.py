@@ -22,10 +22,9 @@ class Board:
             "right_column": {"X": 0, "O": 0},
         }
 
-        i = 0
-        while i < len(self._board):
+        for i, row in range(len(self._board)), self._board:
             j = 0
-            while j < len(self[i]._board):
+            for j, column in range(len(self[i]._board)), self[i]._board:
                 if i == 0:
                     if j == 0:
                         board_matches["top_row"][self._board[i][j]] += 1
@@ -56,8 +55,6 @@ class Board:
                     if j == 2:
                         board_matches["bootom_row"][self._board[i][j]] += 1
                         board_matches["right_column"][self._board[i][j]] += 1
-                j += 1
-            i += 1
 
         async def detremin_winner():
             async for values in board_matches.values:

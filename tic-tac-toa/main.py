@@ -52,29 +52,35 @@ class Main:
 
             print(range(len(curent_game_board)), curent_game_board)
 
+            print("   0,  1,  2")
             for row in range(len(curent_game_board)):
-                print("  0, 1, 2")
                 print(str(row) + " " + str(curent_game_board[row]))
             
             while True:
                 if self._players[0] == "player":
-                    position = input("Which position would you like to take? (number,number)\n>").replace("", "").split(",")
+                    position = input("Which position would you like to take? (number,number)\n>").split(" ")
                     if curent_game_board[int(position[0])][int(position[1])] == (" " or ""):
-                        curent_game_board[int(position[0])][int(position[1])]
+                        curent_game_board[int(position[0])][int(position[1])] = "X"
                         break
                 print("That slot is already taken!")
 
+            for row in range(len(curent_game_board)):
+                print(str(row) + " " + str(curent_game_board[row]))
+
             while True:
                 if self._players[1] == "player":
-                    position = input("Which position would you like to take? (number,number)\n>").replace("", "").split(",")
+                    position = input("Which position would you like to take? (number,number)\n>").split(" ")
                     if curent_game_board[int(position[0])][int(position[1])] == (" " or ""):
-                        curent_game_board[int(position[0])][int(position[1])]
+                        curent_game_board[int(position[0])][int(position[1])] = "O"
                         break
                     print("That slot is already taken!")
 
+            game_board.set_board(curent_game_board)
+
             turns += 1
-            if (turns > 3):
+            if (turns > 2):
                 winner = game_board.check_win()
+                print(winner)
                 if winner == ("X" or "O"):
                     print(winner + "won!")
                     if self._players[0] == "player" and self._players[1] == "bot":

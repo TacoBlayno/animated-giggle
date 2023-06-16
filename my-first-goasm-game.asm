@@ -1,0 +1,23 @@
+DATA SECTION
+WRKEEP DQ 0
+
+HEARTS: DB 3
+STRENGTH: DB 1
+SPEED: DB 8
+NAME: DQ ?
+
+CODE SECTION
+
+FINISH:
+    MOV EAX, 0
+    RET
+
+START:
+    PUSH -11
+    CALL GetStdHandle
+    PUSH 0, ADDR WRKEEP
+    PUSH 44, "Welcome to TacoBlayno's GoAsm Terminal Game"
+    PUSH EAX
+    CALL WriteFile
+
+    CALL FINISH
